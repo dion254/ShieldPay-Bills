@@ -5,7 +5,7 @@ import { AppLayout, StatusBadge } from "@/components/layout/AppLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import type { PaymentRequest, Supplier, PaymentMethod, Frequency } from "@/lib/types";
-import { fmtKES, getPlatformFee, daysUntil, today, clsx } from "@/lib/utils";
+import { fmtKES, daysUntil, today, clsx } from "@/lib/utils";
 import { SUPPLIER_TYPE_CONFIG, METHOD_CONFIG, FREQUENCY_LABELS, PAYMENTS_URL } from "@/lib/constants";
 import { format } from "date-fns";
 
@@ -40,7 +40,7 @@ function NewPaymentDrawer({ businessId, plan, onClose, onSaved }: {
     set("account_ref", ref);
   }, [f.supplier_id]);
 
-  const fee = f.amount && Number(f.amount) > 0 ? getPlatformFee(f.payment_method, plan as any) : 0;
+  const fee = 0; // Subscription-only — no transaction fees
 
   const submit = async (asDraft = false) => {
     if (!f.supplier_id) { setError("Select a supplier"); return; }
@@ -50,7 +50,7 @@ function NewPaymentDrawer({ businessId, plan, onClose, onSaved }: {
     const status = asDraft ? "draft" : f.requires_approval ? "pending_approval" : "approved";
     const { data, error: err } = await supabase.from("payment_requests").insert({
       business_id: businessId, supplier_id: f.supplier_id, title: f.title.trim(),
-      amount: Number(f.amount), platform_fee /* subscription plan - no fee */: fee, payment_method: f.payment_method,
+      amount: Number(f.amount), platform_fee: fee, payment_method: f.payment_method,
       account_ref: f.account_ref.trim() || null, reference: f.reference.trim() || null,
       notes: f.notes.trim() || null, due_date: f.due_date, status,
       requested_by: user!.id, requested_at: new Date().toISOString(),
@@ -209,7 +209,7 @@ function DetailModal({ req, onClose, onAction }: {
           <div className="bg-primary/5 border border-primary/15 rounded-2xl p-5 text-center">
             <p className="text-xs font-bold uppercase tracking-wider text-primary/60 mb-1">Payment Amount</p>
             <p className="text-5xl font-black text-primary">{fmtKES(req.amount)}</p>
-            <p className="text-sm text-slate-400 mt-1">+ KES {req.platform_fee /* subscription plan - no fee */} platform fee</p>
+            <p className="text-sm text-slate-400 mt-1">+ KES {req.platform_fee} platform fee</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {details.map(([label, value]) => (

@@ -4,7 +4,7 @@ import { Plus, Search, X, Loader2, Edit2, Pause, Play, XCircle,
 import { AppLayout } from "@/components/layout/AppLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { fmtKES, getPlatformFee, clsx } from "@/lib/utils";
+import { fmtKES, clsx } from "@/lib/utils";
 import { METHOD_CONFIG, SUPPLIER_TYPE_CONFIG, FREQUENCY_LABELS } from "@/lib/constants";
 import type { PaymentSchedule, Supplier, PaymentMethod, Frequency } from "@/lib/types";
 import { format } from "date-fns";
@@ -46,7 +46,7 @@ function BillDrawer({ bill, businessId, plan, onClose, onSaved }: {
     set("account_override", ref);
   }, [f.supplier_id]);
 
-  const fee = f.amount && Number(f.amount) > 0 ? getPlatformFee(f.payment_method, plan as any) : 0;
+  const fee = 0; // Subscription-only — no transaction fees
 
   const save = async () => {
     if (!f.supplier_id) { setError("Select a supplier"); return; }
@@ -106,8 +106,6 @@ function BillDrawer({ bill, businessId, plan, onClose, onSaved }: {
                   <span className="text-slate-500">Bill amount</span><span className="font-bold">{fmtKES(Number(f.amount))}</span>
                 </div>
                 <div className="flex justify-between text-sm bg-primary/5 border border-primary/15 rounded-xl px-4 py-2.5">
-                  <span className="text-primary font-medium">Platform fee ({METHOD_CONFIG[f.payment_method]?.provider})</span>
-                  <span className="font-bold text-primary">KES {fee}</span>
                 </div>
               </div>
             )}
