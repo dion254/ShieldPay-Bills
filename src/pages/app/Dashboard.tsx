@@ -71,9 +71,13 @@ export default function Dashboard() {
             <AlertTriangle size={16} className="text-amber-600 shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="font-semibold">Trial ends in {daysLeft} day{daysLeft !== 1 ? "s" : ""}</p>
-              <p className="text-amber-700/80 text-xs mt-0.5">Activate your subscription to keep automations running.</p>
+              <p className="text-amber-700/80 text-xs mt-0.5">
+                Subscribe now to keep automations running. No per-transaction fees — flat monthly rate only.
+              </p>
             </div>
-            <button onClick={() => navigate("/settings/billing")} className="btn-primary text-xs px-4 py-2 shrink-0">Activate</button>
+            <button onClick={() => navigate("/settings/billing")} className="btn-primary text-xs px-4 py-2 shrink-0">
+              Subscribe — KES 1,499/mo
+            </button>
           </div>
         )}
 

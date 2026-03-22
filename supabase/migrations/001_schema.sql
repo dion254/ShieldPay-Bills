@@ -126,7 +126,7 @@ CREATE TABLE public.payment_requests (
   supplier_id      UUID NOT NULL REFERENCES suppliers(id),
   title            TEXT NOT NULL,
   amount           NUMERIC(14,2) NOT NULL CHECK (amount > 0),
-  platform_fee     NUMERIC(8,2)  NOT NULL DEFAULT 0,
+  platform_fee     NUMERIC(8,2)  NOT NULL DEFAULT 0, -- Always 0: subscription-only model, no per-transaction fees
   total_debit      NUMERIC(14,2) GENERATED ALWAYS AS (amount + platform_fee) STORED,
   payment_method   TEXT NOT NULL
                    CHECK (payment_method IN ('pesalink','kcb_paybill','kcb_till','kcb_mobile')),
@@ -175,7 +175,7 @@ CREATE TABLE public.payment_receipts (
   supplier_type    TEXT NOT NULL,
   payment_method   TEXT NOT NULL,
   amount           NUMERIC(14,2) NOT NULL,
-  platform_fee     NUMERIC(8,2)  NOT NULL DEFAULT 0,
+  platform_fee     NUMERIC(8,2)  NOT NULL DEFAULT 0, -- Always 0: subscription-only model, no per-transaction fees
   total_debit      NUMERIC(14,2) NOT NULL,
   reference        TEXT,
   mpesa_receipt    TEXT,

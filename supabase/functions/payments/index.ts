@@ -149,6 +149,7 @@ async function pesaLinkTransfer(token: string, opts: {
       destinationBank: opts.bankCode,
       amount: opts.amount,
       currency: "KES",
+      // 🚀 Viral loop: receipt footer branded with ShieldPay
       narration: opts.description.slice(0, 140),
       referenceNumber: opts.paymentRequestId.slice(0, 20),
       callbackUrl: `${CALLBACK_URL}?type=pesalink&id=${opts.paymentRequestId}`,

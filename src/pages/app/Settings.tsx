@@ -76,8 +76,8 @@ function BillingTab() {
         <div className="bg-slate-50 rounded-2xl p-4 space-y-2 text-sm">
           <div className="flex justify-between"><span className="text-slate-500">Monthly</span><span className="font-bold">{current.price ? fmtKES(current.price) : "Custom"}</span></div>
           <div className="flex justify-between"><span className="text-slate-500">Schedules</span><span className="font-bold">{current.maxSchedules >= 999999 ? "Unlimited" : `Up to ${current.maxSchedules}`}</span></div>
-          <div className="flex justify-between"><span className="text-slate-500">M-Pesa fee</span><span className="font-bold">KES {current.execFee.mpesa || "Free"}</span></div>
-          <div className="flex justify-between"><span className="text-slate-500">PesaLink fee</span><span className="font-bold">KES {current.execFee.bank || "Free"}</span></div>
+          <div className="flex justify-between"><span className="text-slate-500">M-Pesa fee</span><span className="font-bold text-green-600">Included ✓</span></div>
+          <div className="flex justify-between"><span className="text-slate-500">PesaLink fee</span><span className="font-bold text-green-600">Included ✓</span></div>
         </div>
       </div>
 
@@ -93,8 +93,8 @@ function BillingTab() {
                 <p className="text-xs text-slate-400 mb-4">/month</p>
                 <div className="space-y-1.5 text-sm text-slate-600">
                   <p>✓ {plan.maxSchedules} payment schedules</p>
-                  <p>✓ KES {plan.execFee.mpesa} per M-Pesa</p>
-                  <p>✓ KES {plan.execFee.bank} per PesaLink</p>
+                  <p>✓ M-Pesa payments included</p>
+                  <p>✓ PesaLink payments included</p>
                   <p>✓ Full approval workflows</p>
                   <p>✓ KRA compliance reports</p>
                 </div>

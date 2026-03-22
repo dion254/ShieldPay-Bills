@@ -1,12 +1,66 @@
 import type { PlanKey, MemberRole, PaymentMethod, SupplierType, Frequency, PaymentStatus, IndustryType } from "./types";
 
-export const PLANS: Record<PlanKey, { name: string; price: number | null; maxSchedules: number; execFee: { mpesa: number; bank: number }; badge: string }> = {
-  starter:    { name: "Starter",    price: 1499, maxSchedules: 20,     execFee: { mpesa: 35, bank: 65 }, badge: "badge-slate"  },
-  growth:     { name: "Growth",     price: 2999, maxSchedules: 50,     execFee: { mpesa: 25, bank: 50 }, badge: "badge-green"  },
-  enterprise: { name: "Enterprise", price: null, maxSchedules: 999999, execFee: { mpesa: 0,  bank: 0  }, badge: "badge-purple" },
+// ─── SUBSCRIPTION-ONLY PLANS (no per-transaction fees) ───────
+export const PLANS: Record<PlanKey, {
+  name: string; price: number | null; maxSchedules: number;
+  badge: string; tagline: string; popular: boolean;
+  features: string[];
+}> = {
+  starter: {
+    name: "Starter", price: 1499, maxSchedules: 20, badge: "badge-slate",
+    tagline: "Perfect for a single location",
+    popular: false,
+    features: [
+      "Up to 20 bill schedules",
+      "M-Pesa + PesaLink payments",
+      "Auto-generated receipts",
+      "Cash flow reports",
+      "Approval workflows",
+      "KRA compliance reports",
+      "Up to 5 team members",
+      "Email support",
+    ],
+  },
+  growth: {
+    name: "Growth", price: 2999, maxSchedules: 100, badge: "badge-green",
+    tagline: "For growing businesses",
+    popular: true,
+    features: [
+      "Up to 100 bill schedules",
+      "Everything in Starter",
+      "Auto-execute on due date",
+      "QuickBooks + Zoho sync",
+      "Advanced analytics",
+      "Up to 15 team members",
+      "Priority support",
+      "Custom budget categories",
+    ],
+  },
+  enterprise: {
+    name: "Enterprise", price: null, maxSchedules: 999999, badge: "badge-purple",
+    tagline: "For large operations",
+    popular: false,
+    features: [
+      "Unlimited bill schedules",
+      "Everything in Growth",
+      "Unlimited team members",
+      "Dedicated account manager",
+      "Custom integrations + API",
+      "SLA guarantee",
+      "On-site training",
+      "Custom reporting",
+    ],
+  },
 };
 
-export const ROLE_CONFIG: Record<MemberRole, { label: string; badge: string; icon: string; desc: string; canApprove: boolean; canExecute: boolean; canWrite: boolean; isAdmin: boolean }> = {
+// ─── NO TRANSACTION FEES ─────────────────────────────────────
+// Subscription only. Zero per-transaction charges.
+export const TRANSACTION_FEE = 0;
+
+export const ROLE_CONFIG: Record<MemberRole, {
+  label: string; badge: string; icon: string; desc: string;
+  canApprove: boolean; canExecute: boolean; canWrite: boolean; isAdmin: boolean;
+}> = {
   owner:           { label: "Owner",           badge: "badge-purple", icon: "👑", desc: "Full access — billing, settings, all operations.",              canApprove: true,  canExecute: true,  canWrite: true,  isAdmin: true  },
   admin:           { label: "Admin",           badge: "badge-blue",   icon: "🔑", desc: "Manage suppliers, schedule payments, manage team.",             canApprove: true,  canExecute: true,  canWrite: true,  isAdmin: true  },
   finance_manager: { label: "Finance Manager", badge: "badge-green",  icon: "💼", desc: "Execute approved payments, export reports.",                    canApprove: false, canExecute: true,  canWrite: true,  isAdmin: false },
@@ -52,9 +106,20 @@ export const FREQUENCY_LABELS: Record<Frequency, string> = {
   yearly:    "Annually",
 };
 
-export const INDUSTRY_CONFIG: Record<IndustryType, { label: string; icon: string; color: string; tagline: string }> = {
-  restaurant: { label: "Restaurant",  icon: "🍽️", color: "orange", tagline: "KPLC, gas, food suppliers, rent, NHIF — all automated" },
-  logistics:  { label: "Logistics",   icon: "🚛", color: "blue",   tagline: "Fuel, insurance, driver payroll, maintenance — zero missed payments" },
+export const INDUSTRY_CONFIG: Record<IndustryType, {
+  label: string; icon: string; color: string; tagline: string;
+  painPoint: string;
+}> = {
+  restaurant: {
+    label: "Restaurant",  icon: "🍽️", color: "orange",
+    tagline: "KPLC, gas, food suppliers, rent, NHIF — all automated",
+    painPoint: "Never miss a supplier payment and risk your kitchen shutting down",
+  },
+  logistics: {
+    label: "Logistics",   icon: "🚛", color: "blue",
+    tagline: "Fuel, insurance, driver payroll, maintenance — zero missed payments",
+    painPoint: "Never miss a fuel or insurance payment and ground your fleet",
+  },
 };
 
 export const SUPPLIER_CATEGORIES_BY_INDUSTRY: Record<IndustryType, string[]> = {
@@ -96,3 +161,4 @@ export const SUPER_ADMIN_EMAIL = "diondickson3@gmail.com";
 export const SUPABASE_REF      = "rnplqhlwvnqrghrjvylx";
 export const CALLBACK_URL      = `https://${SUPABASE_REF}.supabase.co/functions/v1/callback`;
 export const PAYMENTS_URL      = `https://${SUPABASE_REF}.supabase.co/functions/v1/payments`;
+export const TRIAL_DAYS        = 30;
