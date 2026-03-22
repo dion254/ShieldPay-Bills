@@ -16,7 +16,7 @@ import { format } from "date-fns";
 const NAV = [
   { label: "Dashboard",  path: "/dashboard", icon: LayoutDashboard },
   { label: "Bills",      path: "/bills",      icon: FileText },
-  { label: "Suppliers",  path: "/suppliers",  icon: Package  },
+  { label: "Who You Pay", path: "/suppliers",  icon: Package  },
   { label: "Payments",   path: "/payments",   icon: CreditCard,
     children: [
       { label: "Upcoming",         path: "/payments/upcoming", icon: Clock      },

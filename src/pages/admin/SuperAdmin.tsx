@@ -47,7 +47,7 @@ function Toast({ msg, ok }: { msg: string; ok: boolean }) {
 function BusinessPanel({ b, onClose, onRefresh }: {
   b: any; onClose: () => void; onRefresh: () => void;
 }) {
-  const [tab, setTab]           = useState<"overview"|"members"|"payments"|"comms">("overview");
+  const [tab, setTab]           = useState<"overview"|"members"|"payments"|"comms">(b._openTab ?? "overview");
   const [members, setMembers]   = useState<any[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [loading, setLoading]   = useState(true);

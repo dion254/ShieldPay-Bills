@@ -50,7 +50,7 @@ export default function Reports() {
       rows = [["Timestamp","User","Role","Action","Details"],
         ...data.map((l: any) => [format(new Date(l.created_at),"yyyy-MM-dd HH:mm:ss"), l.user_email||"System", l.user_role||"", l.action, JSON.stringify(l.details||{})])];
     } else {
-      rows = [["Date","Supplier","Category","Title","Amount","Status","Method","Reference","Receipt/Ref"],
+      rows = [["Date","Payee","Category","Title","Amount","Status","Method","Reference","Receipt/Ref"],
         ...data.map((r: any) => [r.due_date,(r.supplier as any)?.name||"",(r.supplier as any)?.category||"",r.title,String(r.amount),r.status,r.payment_method,r.reference||"",r.mpesa_receipt||r.bank_reference||""])];
     }
     const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
@@ -95,7 +95,7 @@ export default function Reports() {
           <div className="table-wrap">
             {tab === "summary" && (
               <table className="table min-w-[800px]">
-                <thead className="thead"><tr>{["Date","Supplier","Title","Amount","Method","Status","Receipt"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
+                <thead className="thead"><tr>{["Date","Payee","Title","Amount","Method","Status","Receipt"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
                 <tbody className="tbody">
                   {loading ? null : data.length === 0 ? <tr><td colSpan={7} className="td text-center py-12 text-slate-400">No payments in this period</td></tr>
                   : data.map((r: any) => (
@@ -115,7 +115,7 @@ export default function Reports() {
 
             {tab === "kra" && (
               <table className="table min-w-[900px]">
-                <thead className="thead"><tr>{["Date","Supplier","Category","Net Amount","VAT (16%)","Gross Total","Receipt"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
+                <thead className="thead"><tr>{["Date","Payee","Category","Net Amount","VAT (16%)","Gross Total","Receipt"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
                 <tbody className="tbody">
                   {loading ? null : data.filter((r: any) => r.status === "completed").map((r: any) => {
                     const vat = Math.round(r.amount * 0.16);

@@ -36,7 +36,7 @@ export default function KRA() {
   const exportCSV = () => {
     const rows = [
       ["KRA Payment Report", `${business?.name}`, `KRA PIN: ${business?.kra_pin || "—"}`, `Q${quarter} ${year}`, "", "", "", ""],
-      ["Date Paid","Supplier","Supplier KRA PIN","Category","Description","Net Amount (KES)","VAT 16% (KES)","Gross Total (KES)","Receipt / Ref"],
+      ["Date Paid","Payee","Payee KRA PIN","Category","Description","Net Amount (KES)","VAT 16% (KES)","Gross Total (KES)","Receipt / Ref"],
       ...data.map(r => [
         r.completed_at ? format(new Date(r.completed_at),"yyyy-MM-dd") : r.due_date,
         (r.supplier as any)?.name||"",
@@ -112,7 +112,7 @@ export default function KRA() {
           </div>
           <div className="table-wrap">
             <table className="table min-w-[950px]">
-              <thead className="thead"><tr>{["Date Paid","Supplier","Category","Description","Net (KES)","VAT 16% (KES)","Gross (KES)","Receipt / Ref"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
+              <thead className="thead"><tr>{["Date Paid","Payee","Category","Description","Net (KES)","VAT 16% (KES)","Gross (KES)","Receipt / Ref"].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
               <tbody className="tbody">
                 {loading ? Array.from({length:6}).map((_,i) => <tr key={i}>{Array.from({length:8}).map((_,j) => <td key={j} className="td"><div className="skeleton h-4 w-full" /></td>)}</tr>)
                 : data.length === 0 ? <tr><td colSpan={8} className="td text-center py-16 text-slate-400"><div className="text-4xl mb-3">📄</div>No completed payments in Q{quarter} {year}</td></tr>

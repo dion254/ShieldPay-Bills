@@ -333,7 +333,7 @@ export function IntegrationsTab() {
         <div className="grid grid-cols-3 gap-3 text-center">
           {[
             { icon: "📥", step: "1. Pull",      desc: "Dion imports open bills from QB/Zoho every 10 min into your Bills → Feed inbox" },
-            { icon: "✅", step: "2. Review",    desc: "You review & accept bills in one click — or auto-accept with mapped suppliers" },
+            { icon: "✅", step: "2. Review",    desc: "You review & accept bills in one click — or auto-accept with matched payees" },
             { icon: "📤", step: "3. Reconcile", desc: "After payment, Dion pushes receipt back as a reconciled bill payment" },
           ].map(s => (
             <div key={s.step}>
@@ -370,7 +370,7 @@ export function IntegrationsTab() {
         <p className="text-xs font-bold text-amber-800 mb-1">🇰🇪 KRA / eTIMS Note</p>
         <p className="text-xs text-amber-700">
           Bills pulled from vendors without a KRA PIN will be flagged with ⚠️ in the Feed inbox.
-          Ensure all suppliers have KRA PINs in your accounting software for full eTIMS compliance.
+          Ensure all payees have KRA PINs in your accounting software for full eTIMS compliance.
         </p>
       </div>
     </div>

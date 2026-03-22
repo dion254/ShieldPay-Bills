@@ -98,7 +98,7 @@ export default function Dashboard() {
         {/* Stats row 2 + quick actions */}
         {!loading && (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <StatCard label="Active suppliers" value={stats.suppliers} icon={Package} iconBg="bg-purple-100 text-purple-600" onClick={() => navigate("/suppliers")} />
+            <StatCard label="Payees saved" value={stats.suppliers} icon={Package} iconBg="bg-purple-100 text-purple-600" onClick={() => navigate("/suppliers")} />
             <StatCard label="Team members" value={stats.team} icon={Users} iconBg="bg-indigo-100 text-indigo-600" onClick={() => navigate("/team")} />
             <div className="col-span-2 bg-primary rounded-2xl p-5 flex flex-col justify-between">
               <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-3">Quick Actions</p>

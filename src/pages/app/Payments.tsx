@@ -187,7 +187,7 @@ function DetailModal({ req, onClose, onAction }: {
   };
 
   const details = [
-    ["Supplier",       (req.supplier as any)?.name || "—"],
+    ["Payee",       (req.supplier as any)?.name || "—"],
     ["Method",         METHOD_CONFIG[req.payment_method]?.label || req.payment_method],
     ["Account / ref",  req.account_ref || "—"],
     ["Invoice ref",    req.reference   || "—"],
@@ -314,7 +314,7 @@ export default function Payments() {
         <div className="card overflow-hidden">
           <div className="table-wrap">
             <table className="table min-w-[700px]">
-              <thead className="thead"><tr>{["Payment","Supplier","Amount","Due","Status",""].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
+              <thead className="thead"><tr>{["Payment","Payee","Amount","Due","Status",""].map(h => <th key={h} className="th">{h}</th>)}</tr></thead>
               <tbody className="tbody">
                 {loading ? Array.from({ length: 6 }).map((_, i) => <tr key={i}>{Array.from({length:6}).map((_,j) => <td key={j} className="td"><div className="skeleton h-4 w-full" /></td>)}</tr>)
                 : filtered.length === 0 ? (
